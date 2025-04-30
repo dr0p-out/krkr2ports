@@ -20,7 +20,7 @@ namespace TJS
 // tTJSCriticalSection ( implement on each platform for multi-threading support )
 //---------------------------------------------------------------------------
 #ifdef __WIN32__
-#include <Windows.h>
+#include <windows.h>
 class tTJSCriticalSection
 {
 	CRITICAL_SECTION CS;
