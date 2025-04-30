@@ -8,6 +8,10 @@
 //---------------------------------------------------------------------------
 // TVP Win32 Project File
 //---------------------------------------------------------------------------
+#ifndef NDEBUG
+#define _DEBUG
+#endif
+
 #include "tjsCommHead.h"
 
 #include "SysInitIntf.h"
