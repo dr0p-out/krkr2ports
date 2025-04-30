@@ -16,8 +16,10 @@ extern void TVPDumpHWException();
 
 extern void TVPInitializeBaseSystems();
 
+#ifdef TJS_SUPPORT_VCL
 extern AnsiString TVPNativeProjectDir;
 extern AnsiString TVPNativeDataPath;
+#endif
 
 extern bool TVPProjectDirSelected;
 extern bool TVPSystemIsBasedOnNT;

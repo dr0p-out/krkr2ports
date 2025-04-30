@@ -26,6 +26,7 @@ bool TVPCheckAbout(void);
 bool TVPCheckPrintDataPath();
 void TVPOnError();
 //---------------------------------------------------------------------------
+#ifdef TJS_SUPPORT_VCL
 USEDEF("tvpwin32.def");
 USERES("tvpwin32.res");
 USERES("HBeamCur.res");
@@ -162,6 +163,7 @@ USE("..\..\utils\ObjectList.h", File);
 USEUNIT("..\..\..\tools\win32\krdevui\ConfSettingsUnit.cpp");
 USEFORM("..\..\..\tools\win32\krdevui\ConfMainFrameUnit.cpp", ConfMainFrame); /* TFrame: File Type */
 USEUNIT("..\..\base\CharacterSet.cpp");
+#endif
 //---------------------------------------------------------------------------
 #ifdef TVP_SUPPORT_ERI
 #	pragma link "../../../../Lib/liberina.lib"
@@ -186,7 +188,9 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		// TVPInitializeBaseSystems
 		TVPInitializeBaseSystems();
 
+#ifdef TJS_SUPPORT_VCL
 		Application->Initialize();
+#endif
 
 		if(TVPCheckPrintDataPath()) return 0;
 		if(TVPCheckCmdDescription()) return 0;
@@ -196,12 +200,16 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 		if(TVPCheckAbout()) return 0; // version information dialog box;
 
+#ifdef TJS_SUPPORT_VCL
 		Application->Title = "‹g—¢‹g—¢";
 		Application->CreateForm(__classid(TTVPMainForm), &TVPMainForm);
+#endif
 		TVPLoadPluigins(); // load plugin module *.tpm
 		if(TVPProjectDirSelected) TVPInitializeStartupScript();
 
+#ifdef TJS_SUPPORT_VCL
 		Application->Run();
+#endif
 
 		try
 		{
@@ -212,6 +220,7 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			// ignore errors
 		}
 	}
+#ifdef TJS_SUPPORT_VCL
 	catch (EAbort &e)
 	{
 		// nothing to do
@@ -222,21 +231,32 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		if(!TVPSystemUninitCalled)
 			Application->ShowException(&exception);
 	}
+#endif
 	catch (eTJSScriptError &e)
 	{
 		TVPOnError();
 		if(!TVPSystemUninitCalled)
+		{
+#ifdef TJS_SUPPORT_VCL
 			Application->ShowException(&Exception(e.GetMessage().AsAnsiString()));
+#endif
+		}
 	}
 	catch (eTJS &e)
 	{
 		TVPOnError();
 		if(!TVPSystemUninitCalled)
+		{
+#ifdef TJS_SUPPORT_VCL
 			Application->ShowException(&Exception(e.GetMessage().AsAnsiString()));
+#endif
+		}
 	}
 	catch(...)
 	{
+#ifdef TJS_SUPPORT_VCL
 		Application->ShowException(&Exception("Unknown error!"));
+#endif
 	}
 
 	if(engine_init) TVPUninitScriptEngine();
@@ -245,7 +265,9 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	// delete application and exit forcely
 	// this prevents ugly exception message on exit
 
+#ifdef TJS_SUPPORT_VCL
 	delete Application;
+#endif
 	ExitProcess(0);
 #endif
 	return 0;
