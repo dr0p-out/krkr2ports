@@ -1,4 +1,6 @@
 add_library(tjs2 INTERFACE)
+target_compile_definitions(tjs2 INTERFACE
+  -DTJS_JP_LOCALIZED)
 target_include_directories(tjs2 INTERFACE
   tjs2)
 
