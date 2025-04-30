@@ -207,6 +207,8 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 #ifdef TJS_SUPPORT_VCL
 		Application->Title = "‹g—¢‹g—¢";
 		Application->CreateForm(__classid(TTVPMainForm), &TVPMainForm);
+#else
+#define Application_Title "‹g—¢‹g—¢"
 #endif
 		TVPLoadPluigins(); // load plugin module *.tpm
 		if(TVPProjectDirSelected) TVPInitializeStartupScript();
@@ -243,6 +245,9 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{
 #ifdef TJS_SUPPORT_VCL
 			Application->ShowException(&Exception(e.GetMessage().AsAnsiString()));
+#else
+			MessageBox(NULL, e.GetMessage().AsStdString().c_str(), Application_Title, MB_ICONSTOP | MB_OK | MB_TASKMODAL);
+			ExitProcess(0);
 #endif
 		}
 	}
@@ -253,6 +258,9 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{
 #ifdef TJS_SUPPORT_VCL
 			Application->ShowException(&Exception(e.GetMessage().AsAnsiString()));
+#else
+			MessageBox(NULL, e.GetMessage().AsStdString().c_str(), Application_Title, MB_ICONSTOP | MB_OK | MB_TASKMODAL);
+			ExitProcess(0);
 #endif
 		}
 	}
@@ -260,6 +268,9 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 #ifdef TJS_SUPPORT_VCL
 		Application->ShowException(&Exception("Unknown error!"));
+#else
+		MessageBox(NULL, "Unknown error!", Application_Title, MB_ICONSTOP | MB_OK | MB_TASKMODAL);
+		ExitProcess(0);
 #endif
 	}
 
