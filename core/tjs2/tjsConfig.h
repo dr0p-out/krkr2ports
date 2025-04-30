@@ -71,18 +71,7 @@ TJS_EXP_FUNC_DEF(size_t, TJS_strlen, (const tjs_char *d));
 #define TJS_strtod			wcstod
 
 
-#if defined(__GNUC__)
-	#define TJS_cdecl
-	#define TJS_vsnprintf		vswprintf
-	extern tjs_int TJS_sprintf(tjs_char *s, const tjs_char *format, ...);
-	#define TJS_timezone timezone
-	#define TJS_rand rand
-	#define TJS_RAND_MAX RAND_MAX
-	#define TJS_mbstowcs mbstowcs
-	#define TJS_wcstombs wcstombs
-	#define TJS_mbtowc   mbtowc
-	#define TJS_wctomb   wctomb
-#elif __WIN32__
+#if __WIN32__
 	#define TJS_cdecl __cdecl
 	#define TJS_vsnprintf		vsnwprintf
 	#define TJS_sprintf			swprintf
@@ -93,6 +82,17 @@ TJS_EXP_FUNC_DEF(size_t, TJS_strlen, (const tjs_char *d));
 	extern size_t TJS_wcstombs(tjs_nchar *s, const tjs_char *pwcs, size_t n);
 	extern int TJS_mbtowc(tjs_char *pwc, const tjs_nchar *s, size_t n);
 	extern int TJS_wctomb(tjs_nchar *s, tjs_char wc);
+#elif defined(__GNUC__)
+	#define TJS_cdecl
+	#define TJS_vsnprintf		vswprintf
+	extern tjs_int TJS_sprintf(tjs_char *s, const tjs_char *format, ...);
+	#define TJS_timezone timezone
+	#define TJS_rand rand
+	#define TJS_RAND_MAX RAND_MAX
+	#define TJS_mbstowcs mbstowcs
+	#define TJS_wcstombs wcstombs
+	#define TJS_mbtowc   mbtowc
+	#define TJS_wctomb   wctomb
 #endif
 
 

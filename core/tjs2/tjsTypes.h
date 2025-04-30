@@ -43,7 +43,7 @@
 
 
 
-#if defined(_WIN32)  && !defined(__GNUC__)
+#if defined(_WIN32)
 
 /* VC++/BCC */
 
@@ -143,7 +143,7 @@ typedef unsigned int tjs_uint;
 #define TJS_USERENTRY
 
 
-#endif /* end of defined(_WIN32) && !defined(__GNUC__) */
+#endif /* end of defined(_WIN32) */
 
 /*[*/
 #define TJS_W(X) L##X
