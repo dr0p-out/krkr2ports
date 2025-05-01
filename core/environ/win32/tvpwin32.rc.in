@@ -1,0 +1,25 @@
+#include <winver.h>
+
+ICON1 ICON "@CMAKE_CURRENT_SOURCE_DIR@/core/environ/win32/krkr.ico"
+
+VERSION_INFO VERSIONINFO
+ FILEVERSION @PROJECT_VERSION_MAJOR@,@PROJECT_VERSION_MINOR@,@PROJECT_VERSION_PATCH@,@PROJECT_VERSION_TWEAK@
+ PRODUCTVERSION @PROJECT_VERSION_MAJOR@,@PROJECT_VERSION_MINOR@,@PROJECT_VERSION_PATCH@,@PROJECT_VERSION_TWEAK@
+ FILEOS VOS__WINDOWS32
+ FILETYPE VFT_APP
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "041103a4"
+        BEGIN
+            VALUE "FileDescription", "TVP(KIRIKIRI) 2 core / Scripting Platform for Win32"
+            VALUE "FileVersion", "@PROJECT_VERSION@"
+            VALUE "InternalName", "tvp2/win32"
+            VALUE "LegalCopyright", "(KIRIKIRI core) (C) 1997-2008 W.Dee and Contributors All Rights Reserved. This software is based in part on the work of Independent JPEG Group. For details: Run this program with '-about' option."
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x411, 932
+    END
+END
