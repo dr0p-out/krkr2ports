@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5...4.0)
-project(tvp2win32 VERSION 2.32.2.426)
+project(tvp2win32 VERSION 2.32.2.426 LANGUAGES C CXX ASM_NASM)
 
 add_subdirectory(core)
 
