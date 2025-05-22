@@ -228,16 +228,29 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	}
 #ifdef TJS_SUPPORT_VCL
 	catch (EAbort &e)
+#else
+	catch (decltype(nullptr) &e)
+#endif
 	{
 		// nothing to do
 	}
+#ifdef TJS_SUPPORT_VCL
 	catch (Exception &exception)
+#else
+	catch (std::string &exception)
+#endif
 	{
 		TVPOnError();
 		if(!TVPSystemUninitCalled)
+		{
+#ifdef TJS_SUPPORT_VCL
 			Application->ShowException(&exception);
-	}
+#else
+			MessageBox(NULL, exception.c_str(), Application_Title, MB_ICONSTOP | MB_OK | MB_TASKMODAL);
+			ExitProcess(0);
 #endif
+		}
+	}
 	catch (eTJSScriptError &e)
 	{
 		TVPOnError();

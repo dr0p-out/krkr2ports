@@ -36,7 +36,11 @@ extern ttstr TJSNonamedException;
 			TJS_eTJSError(e.Message.c_str()); \
 		}
 #else
-	#define TJS_CONVERT_TO_TJS_EXCEPTION_ADDITIONAL
+	#define TJS_CONVERT_TO_TJS_EXCEPTION_ADDITIONAL \
+		catch(const std::string &e) \
+		{ \
+			TJS_eTJSError(e.c_str()); \
+		}
 #endif
 
 
@@ -108,7 +112,17 @@ extern void TJSGetExceptionObject(tTJS *tjs, tTJSVariant *res, tTJSVariant &msg,
 		_when_catched; \
 	}
 #else
-	#define TJS_CONVERT_TO_TJS_EXCEPTION_OBJECT_ADDITIONAL(_tjs, _result_condition, _result_addr, _before_catched, _when_catched)
+	#define TJS_CONVERT_TO_TJS_EXCEPTION_OBJECT_ADDITIONAL(_tjs, _result_condition, _result_addr, _before_catched, _when_catched) \
+	catch(std::string &e) \
+	{ \
+		_before_catched; \
+		if(_result_condition) \
+		{ \
+			tTJSVariant msg(e.c_str()); \
+			TJSGetExceptionObject((_tjs), (_result_addr), msg, NULL); \
+		} \
+		_when_catched; \
+	}
 #endif
 
 
